@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- The Spring Boot parent brings the dependency versions and the repackage plugin that
+       makes the runnable fat jar. Pinned, so a build here does not change under you. -->
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.4.1</version>
+    <relativePath/>
+  </parent>
+
+  <groupId>dev.learntools</groupId>
+  <artifactId>uploads-java</artifactId>
+  <version>1.0.0</version>
+  <name>uploads-java</name>
+  <description>A sample app for the MitsuruTech Learning Platform: upload a file, S3 keeps the bytes, Postgres remembers where they are.</description>
+
+  <properties>
+    <java.version>21</java.version>
+    <awssdk.version>2.55.14</awssdk.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <!-- The Postgres driver. Spring Boot's parent pins its version. -->
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+    </dependency>
+
+    <!-- The AWS SDK for Java v2, S3 only. **It brings two HTTP clients along by default**
+         (Apache and Netty) and we want neither: the small `url-connection-client` below is
+         enough for this app and starts faster, so both are excluded. -->
+    <dependency>
+      <groupId>software.amazon.awssdk</groupId>
+      <artifactId>s3</artifactId>
+      <version>${awssdk.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>software.amazon.awssdk</groupId>
+          <artifactId>apache-client</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>software.amazon.awssdk</groupId>
+          <artifactId>netty-nio-client</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>software.amazon.awssdk</groupId>
+      <artifactId>url-connection-client</artifactId>
+      <version>${awssdk.version}</version>
+    </dependency>
+
+    <!-- Tests only. The platform builds with -DskipTests, so this costs nothing there. -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <!-- **One jar, and a fixed name.** The start command is `java -jar target/*.jar`, so a
+         target/ holding two jars makes that glob ambiguous. Spring Boot's repackage leaves
+         the original as `.jar.original`, which the glob does not match, and naming the
+         artifact keeps the version out of the filename so nothing has to be edited when it
+         changes. -->
+    <finalName>app</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>
