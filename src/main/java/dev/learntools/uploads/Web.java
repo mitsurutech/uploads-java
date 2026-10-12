@@ -91,12 +91,27 @@ public class Web {
          * not a thing to build a path out of: `../../etc/passwd` is a perfectly good filename
          * as far as a form is concerned. The real name is a column, which is where it is safe.
          */
-        store.addFile(UUID.randomUUID().toString(), baseName(file.getOriginalFilename()),
+        store.addFile(UUID.randomUUID().toString(), baseName(browserName(file.getOriginalFilename())),
             file.getBytes(), file.getContentType());
 
         // **See the other page, not this one.** A refresh after a POST re-posts it, which is
         // how somebody uploads the same file three times by pressing F5.
         return backToThePage();
+    }
+
+    /**
+     * Undo what a browser did to the filename on the way here.
+     *
+     * <p><b>A browser cannot put a double quote, a carriage return or a line feed inside the
+     * quotes of a multipart header, so it sends them as {@code %22}, {@code %0D} and
+     * {@code %0A}</b> (that is what the HTML standard says to do). Some servers decode those
+     * for you and some do not, and Tomcat does not: a file called {@code my "best" notes.txt}
+     * would otherwise be listed as {@code my %22best%22 notes.txt}. The Node and Python
+     * versions of this sample decode them, so this does too, and the page shows the same name
+     * whichever language is running it.
+     */
+    private static String browserName(String sent) {
+        return sent == null ? "" : sent.replace("%22", "\"").replace("%0D", "\r").replace("%0A", "\n");
     }
 
     /** Only the last part of a path: some browsers send {@code C:\docs\notes.txt}. */
