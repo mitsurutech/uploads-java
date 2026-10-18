@@ -1,6 +1,8 @@
 # File uploads in Java: S3 for the bytes, Postgres for everything else
 
-A Java (Spring Boot) sample app for the [MitsuruTech Learning Platform](https://mitsurutech.co.uk). Upload a
+[English](README.md) | [Français](README.fr.md) | [日本語](README.ja.md) | [Español](README.es.md)
+
+A Java (Spring Boot) sample app for the [MitsuruTech Learning Platform](https://mitsurutech.co.uk/learning). Upload a
 file; S3 keeps it; Postgres remembers where it went and what it is called. The table on the
 page comes out of Postgres, and every download comes out of S3.
 
@@ -18,7 +20,7 @@ src/main/java/dev/learntools/uploads/
 ## Deploying it here
 
 Open **Deploy** on the platform, pick this repository, and start a **database** and the
-**cloud stack** alongside it. Everything the app needs is then in its environment already;
+**cloud stack** alongside it ([how deploying from GitHub works](https://mitsurutech.co.uk/help/deploy-app)). Everything the app needs is then in its environment already;
 there is nothing to configure. The platform builds it with `mvn -q -DskipTests package` and
 starts it with `java -jar target/*.jar`.
 
@@ -98,7 +100,7 @@ as expected), use `mvn test`.
 
 ## Licence
 
-MIT. Fork it, break it, keep the pieces.
+This work is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). You may share it and adapt it for learning and teaching, if you credit Mitsuru Technologies Ltd, do not use it commercially, and share anything you make from it under the same licence. The full text is in the `LICENSE` file.
 
 ## About
 
@@ -107,3 +109,5 @@ Learning Platform for teaching programming. The same sample exists in other lang
 [github.com/mitsurutech/uploads-node](https://github.com/mitsurutech/uploads-node),
 [uploads-python](https://github.com/mitsurutech/uploads-python) and
 [uploads-go](https://github.com/mitsurutech/uploads-go).
+
+Teaching a class? See [the price](https://mitsurutech.co.uk/pricing) or [create a college account](https://mitsurutech.co.uk/signup).

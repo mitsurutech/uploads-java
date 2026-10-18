@@ -19,6 +19,13 @@
   <name>uploads-java</name>
   <description>A sample app for the MitsuruTech Learning Platform: upload a file, S3 keeps the bytes, Postgres remembers where they are.</description>
 
+  <licenses>
+    <license>
+      <name>CC BY-NC-SA 4.0</name>
+      <url>https://creativecommons.org/licenses/by-nc-sa/4.0/</url>
+    </license>
+  </licenses>
+
   <properties>
     <java.version>21</java.version>
     <awssdk.version>2.55.14</awssdk.version>
