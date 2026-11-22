@@ -1,6 +1,6 @@
 # Java でのファイルアップロード：バイト列は S3、それ以外は Postgres
 
-[English](README.md) | [Français](README.fr.md) | [日本語](README.ja.md) | [Español](README.es.md)
+[English](README.md) | [Français](README.fr.md) | [Español](README.es.md) | [日本語](README.ja.md) | [Deutsch](README.de.md)
 
 [MitsuruTech ラーニングプラットフォーム](https://mitsurutech.co.uk/ja/learning)向けの、Java（Spring Boot）のサンプルアプリです。ファイルを
 アップロードすると、S3 がそれを保管し、Postgres がどこに保存したかと名前を覚えます。ページの
